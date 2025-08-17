@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Los 4 Fantásticos: Primeros pasos (2025)</title>
-
-    <!-- Open Graph / Meta tags que Rave suele requerir -->
+    
+    <!-- Metadatos básicos -->
     <meta property="og:title" content="Los 4 Fantásticos: Primeros pasos (2025)">
     <meta property="og:type" content="video.movie">
     <meta property="og:image" content="https://image.tmdb.org/t/p/w780/7FnmZCAjAwaHydgpjFKnu11MoWs.jpg">
@@ -12,9 +12,9 @@
     <meta property="og:video:type" content="video/mp4">
     <meta property="og:video:width" content="1280">
     <meta property="og:video:height" content="720">
-
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
+    
+    <!-- JSON-LD que se actualiza dinámicamente -->
+    <script type="application/ld+json" id="structured-data">
     {
       "@context": "https://schema.org",
       "@type": "VideoObject",
@@ -23,7 +23,7 @@
       "thumbnailUrl": "https://image.tmdb.org/t/p/w780/7FnmZCAjAwaHydgpjFKnu11MoWs.jpg",
       "uploadDate": "2025-07-05T12:00:00+00:00",
       "duration": "PT01H47M30S",
-      "contentUrl": "https://cdnst90.tokyvideo.com/videos/791/791684/mp4/107d5661b57aee17848f2fcea740ffc5b1f0c2328f4b4246662c5e41ef384d11.mp4?secure=C9wsNPxgkB_nJW9BzhDHuA%3D%3D%2C1755484489",
+      "contentUrl": "https://www.tokyvideo.com/es/video/gigide-vuelta-a-la-accion-2025-latino?utm_campaign=embed&utm_medium=embed-link&utm_source=embed-link",
       "embedUrl": "https://cfa11d7e7ea0.ngrok-free.app/test2.html",
       "interactionStatistic": {
         "@type": "InteractionCounter",
@@ -32,9 +32,154 @@
       }
     }
     </script>
+
+    <!-- Meta refresh para redirigir después de que Rave lea los metadatos -->
+    <meta http-equiv="refresh" content="3;url=https://www.tokyvideo.com/es/video/gigide-vuelta-a-la-accion-2025-latino?utm_campaign=embed&utm_medium=embed-link&utm_source=embed-link">
 </head>
 <body>
-    <h1>prueba 2</h1>
-    <p>Esta página contiene metadatos para Rave, el video no se reproduce directamente aquí.</p>
+    <div id="rave-handler">
+        <h1>Preparando video...</h1>
+        <p id="status">Configurando para Rave...</p>
+        <div id="countdown">Redirigiendo en <span id="timer">3</span> segundos...</div>
+    </div>
+
+    <!-- Frame oculto que carga el video original -->
+    <iframe id="video-frame" 
+            src="https://www.tokyvideo.com/es/video/gigide-vuelta-a-la-accion-2025-latino?utm_campaign=embed&utm_medium=embed-link&utm_source=embed-link"
+            style="display: none;"
+            onload="handleFrameLoad()">
+    </iframe>
+
+    <script>
+        // Detectar si es Rave accediendo
+        function isRaveBot() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            const possibleRaveBots = [
+                'rave',
+                'bot',
+                'crawler',
+                'spider',
+                'facebook',
+                'whatsapp',
+                'telegram',
+                'discord'
+            ];
+            
+            return possibleRaveBots.some(bot => userAgent.includes(bot)) || 
+                   document.referrer.includes('rave') ||
+                   window.location.search.includes('rave=true');
+        }
+
+        // Si es Rave, mantener la página para que lea los metadatos
+        if (isRaveBot()) {
+            // Remover el meta refresh
+            const metaRefresh = document.querySelector('meta[http-equiv="refresh"]');
+            if (metaRefresh) {
+                metaRefresh.remove();
+            }
+            
+            // Actualizar el estado
+            document.getElementById('status').textContent = 'Metadatos listos para Rave';
+            document.getElementById('countdown').style.display = 'none';
+            
+            // Log para debugging
+            console.log('Rave detectado - manteniendo página para metadatos');
+            
+        } else {
+            // Si es un usuario normal, proceder con redirección
+            let timeLeft = 3;
+            const timer = document.getElementById('timer');
+            
+            const countdown = setInterval(() => {
+                timeLeft--;
+                timer.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    // Redirigir al video original
+                    window.location.href = 'https://www.tokyvideo.com/es/video/gigide-vuelta-a-la-accion-2025-latino?utm_campaign=embed&utm_medium=embed-link&utm_source=embed-link';
+                }
+            }, 1000);
+        }
+
+        // Función para manejar la carga del iframe (opcional)
+        function handleFrameLoad() {
+            console.log('Video frame cargado');
+            // Aquí podrías extraer información del iframe si fuera necesario
+        }
+
+        // Función alternativa: redirigir inmediatamente si se detecta ciertos parámetros
+        function handleDirectRedirect() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            if (urlParams.get('direct') === 'true' && !isRaveBot()) {
+                // Redirigir inmediatamente
+                window.location.replace('https://www.tokyvideo.com/es/video/gigide-vuelta-a-la-accion-2025-latino?utm_campaign=embed&utm_medium=embed-link&utm_source=embed-link');
+            }
+        }
+
+        // Manejar diferentes métodos de acceso
+        document.addEventListener('DOMContentLoaded', function() {
+            handleDirectRedirect();
+            
+            // Si viene con parámetro de Rave, asegurar que no redirija
+            if (window.location.search.includes('rave=true')) {
+                const metaRefresh = document.querySelector('meta[http-equiv="refresh"]');
+                if (metaRefresh) {
+                    metaRefresh.remove();
+                }
+                document.getElementById('status').textContent = 'Página optimizada para Rave';
+                document.getElementById('countdown').innerHTML = '<span style="color: green;">✓ Metadatos listos</span>';
+            }
+        });
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #rave-handler {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        #status {
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+
+        #countdown {
+            font-size: 1.1em;
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        #timer {
+            font-weight: bold;
+            color: #FFD700;
+            font-size: 1.3em;
+        }
+    </style>
 </body>
 </html>
